@@ -23,4 +23,9 @@ Route::get("/test", function () {
 
 Route::get("/test/{text}", function ($text) {
     return $text;
-});
+})->whereAlpha('text');
+
+
+Route::get('sum/{a}/{b}', function ($a, $b) {
+    return $a + $b;
+})->whereNumber(['a','b']);
