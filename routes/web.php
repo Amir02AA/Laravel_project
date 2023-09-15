@@ -17,15 +17,24 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get("/test", function () {
-    return "AMIR";
+
+Route::prefix('user')->group(function () {
+    Route::get("/test", function () {
+        return "AMIR";
+    });
+
+    Route::get("/test/{text}", function ($text) {
+        return $text;
+    })->whereAlpha('text');
+
+
+    Route::get('/sum/{a}/{b}', function ($a, $b) {
+        return $a + $b;
+    })->whereNumber(['a', 'b']);
+    Route::get('/parameter/{x?}', function ($x = null) {
+        return !is_null($x);
+    });
+    Route::get('/national-code/{code}', function ($code) {
+        return $code;
+    })->where('code', '^[0-9]{10}$');
 });
-
-Route::get("/test/{text}", function ($text) {
-    return $text;
-})->whereAlpha('text');
-
-
-Route::get('sum/{a}/{b}', function ($a, $b) {
-    return $a + $b;
-})->whereNumber(['a','b']);
